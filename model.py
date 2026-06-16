@@ -21,8 +21,13 @@ def flatten_patches(patches):
     B, N, C, _, _ = patches.shape
     return torch.reshape(patches, (B, N, -1))
 
-# Step 3 - linear_projection (not yet solved)
-# TODO: implement
+# Step 3 - linear_projection
+import torch
+
+def linear_projection(x, weight, bias):
+    """Apply y = x @ weight.T + bias with arbitrary leading dims on x."""
+    # TODO: compute the affine map y = x @ weight.T + bias
+    return x @ weight.T + bias
 
 # Step 4 - project_patches_to_embeddings (not yet solved)
 # TODO: implement
