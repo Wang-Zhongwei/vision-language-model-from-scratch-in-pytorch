@@ -15,7 +15,7 @@ python scaffold.py
 - [x] **3.** linear_projection
 - [x] **4.** project_patches_to_embeddings
 - [x] **5.** prepend_class_token
-- [ ] **6.** add_position_embeddings
+- [x] **6.** add_position_embeddings
 - [ ] **7.** compute_attention_scores
 - [ ] **8.** scale_attention_scores
 - [ ] **9.** apply_attention_mask
