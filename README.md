@@ -13,7 +13,7 @@ python scaffold.py
 - [x] **1.** split_image_into_patches
 - [x] **2.** flatten_patches
 - [x] **3.** linear_projection
-- [ ] **4.** project_patches_to_embeddings
+- [x] **4.** project_patches_to_embeddings
 - [ ] **5.** prepend_class_token
 - [ ] **6.** add_position_embeddings
 - [ ] **7.** compute_attention_scores
