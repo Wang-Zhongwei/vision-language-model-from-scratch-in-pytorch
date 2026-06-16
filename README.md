@@ -11,7 +11,7 @@ python scaffold.py
 ## Steps
 
 - [x] **1.** split_image_into_patches
-- [ ] **2.** flatten_patches
+- [x] **2.** flatten_patches
 - [ ] **3.** linear_projection
 - [ ] **4.** project_patches_to_embeddings
 - [ ] **5.** prepend_class_token

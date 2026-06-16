@@ -15,8 +15,11 @@ def split_image_into_patches(image, patch_size):
     x = x.permute(0, 2, 4, 1, 3, 5) # (B, H//P, W//P, C, P, P)
     return x.reshape(B, (H // P) * (W // P), C, P, P)
 
-# Step 2 - flatten_patches (not yet solved)
-# TODO: implement
+# Step 2 - flatten_patches
+def flatten_patches(patches):
+    # TODO: flatten each patch's channel and spatial dims into one vector, keep (B, N) leading dims.
+    B, N, C, _, _ = patches.shape
+    return torch.reshape(patches, (B, N, -1))
 
 # Step 3 - linear_projection (not yet solved)
 # TODO: implement
