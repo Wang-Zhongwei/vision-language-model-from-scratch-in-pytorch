@@ -172,8 +172,22 @@ def merge_and_output_project(context_heads, wo, bo):
     # TODO: merge multi-head context to (B, S, d_model) then apply linear projection with wo, bo
     return merge_heads(context_heads) @ wo.transpose(-1, -2) + bo
 
-# Step 19 - multi_head_self_attention (not yet solved)
-# TODO: implement
+# Step 19 - multi_head_self_attention
+import torch
+
+def multi_head_self_attention(x, params, num_heads, mask=None):
+    """Run full multi-head self-attention: QKV proj, head split, attention, merge, output proj."""
+    wq, bq = params['wq'], params['bq']
+    wk, bk = params['wk'], params['bk']
+    wv, bv = params['wv'], params['bv']
+    wo, bo = params['wo'], params['bo']
+
+    q, k, v = project_qkv(x, wq, bq, wk, bk, wv, bv)
+    q_h, k_h, v_h = split_qkv_into_heads(q, k, v, num_heads)
+    context_heads = multi_head_attention_scores(q_h, k_h, v_h, mask)
+    x = merge_and_output_project(context_heads, wo, bo)
+
+    return x
 
 # Step 20 - gelu_activation (not yet solved)
 # TODO: implement
