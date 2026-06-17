@@ -130,8 +130,14 @@ def split_into_heads(x, num_heads):
     B, S, d_model = x.shape
     return x.reshape(B, S, num_heads, -1).transpose(-2, -3)
 
-# Step 14 - merge_heads (not yet solved)
-# TODO: implement
+# Step 14 - merge_heads
+import torch
+
+def merge_heads(x):
+    """Merge (B, num_heads, S, d_head) back to (B, S, num_heads*d_head)."""
+    # TODO: merge the multi-head dimension back into the model dimension
+    B, num_heads, S, d_head = x.shape
+    return x.transpose(-2, -3).reshape(B, S, -1)
 
 # Step 15 - project_qkv (not yet solved)
 # TODO: implement
