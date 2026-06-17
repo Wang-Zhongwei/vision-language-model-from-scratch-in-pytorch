@@ -24,7 +24,7 @@ python scaffold.py
 - [x] **12.** scaled_dot_product_attention
 - [x] **13.** split_into_heads
 - [x] **14.** merge_heads
-- [ ] **15.** project_qkv
+- [x] **15.** project_qkv
 - [ ] **16.** split_qkv_into_heads
 - [ ] **17.** multi_head_attention_scores
 - [ ] **18.** merge_and_output_project
