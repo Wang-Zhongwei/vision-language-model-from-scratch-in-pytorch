@@ -164,8 +164,13 @@ def multi_head_attention_scores(q_h, k_h, v_h, mask=None):
     # TODO: run scaled dot-product attention across the head axis
     return scaled_dot_product_attention(q_h, k_h, v_h, mask)
 
-# Step 18 - merge_and_output_project (not yet solved)
-# TODO: implement
+# Step 18 - merge_and_output_project
+import torch
+
+def merge_and_output_project(context_heads, wo, bo):
+    """Merge heads back to d_model and apply the output projection."""
+    # TODO: merge multi-head context to (B, S, d_model) then apply linear projection with wo, bo
+    return merge_heads(context_heads) @ wo.transpose(-1, -2) + bo
 
 # Step 19 - multi_head_self_attention (not yet solved)
 # TODO: implement

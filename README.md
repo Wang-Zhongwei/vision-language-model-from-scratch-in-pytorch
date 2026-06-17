@@ -27,7 +27,7 @@ python scaffold.py
 - [x] **15.** project_qkv
 - [x] **16.** split_qkv_into_heads
 - [x] **17.** multi_head_attention_scores
-- [ ] **18.** merge_and_output_project
+- [x] **18.** merge_and_output_project
 - [ ] **19.** multi_head_self_attention
 - [ ] **20.** gelu_activation
 - [ ] **21.** mlp_first_layer
