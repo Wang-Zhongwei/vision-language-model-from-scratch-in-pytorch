@@ -151,8 +151,18 @@ def split_qkv_into_heads(q, k, v, num_heads):
     # TODO: reshape q, k, v from (B, S, d_model) into (B, num_heads, S, d_head) each
     return split_into_heads(q, num_heads), split_into_heads(k, num_heads), split_into_heads(v, num_heads)
 
-# Step 17 - multi_head_attention_scores (not yet solved)
-# TODO: implement
+# Step 17 - multi_head_attention_scores
+import torch
+
+def multi_head_attention_scores(q_h, k_h, v_h, mask=None):
+    """Run scaled dot-product attention in parallel across all heads.
+
+    q_h, k_h, v_h: (B, num_heads, S, d_head)
+    mask: broadcastable to (B, num_heads, S, S) or None
+    returns: (B, num_heads, S, d_head)
+    """
+    # TODO: run scaled dot-product attention across the head axis
+    return scaled_dot_product_attention(q_h, k_h, v_h, mask)
 
 # Step 18 - merge_and_output_project (not yet solved)
 # TODO: implement
