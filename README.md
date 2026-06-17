@@ -21,7 +21,7 @@ python scaffold.py
 - [x] **9.** apply_attention_mask
 - [x] **10.** attention_softmax
 - [x] **11.** attention_context
-- [ ] **12.** scaled_dot_product_attention
+- [x] **12.** scaled_dot_product_attention
 - [ ] **13.** split_into_heads
 - [ ] **14.** merge_heads
 - [ ] **15.** project_qkv
