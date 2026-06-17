@@ -97,8 +97,13 @@ def attention_softmax(masked_scores):
     masked_scores_exp = masked_scores.exp()
     return masked_scores_exp / masked_scores_exp.sum(dim=-1, keepdim=True)
 
-# Step 11 - attention_context (not yet solved)
-# TODO: implement
+# Step 11 - attention_context
+import torch
+
+def attention_context(attn_weights, v):
+    """Combine attention weights with values to produce context vectors."""
+    # TODO: return a tensor of shape (..., Sq, d_head) from attn_weights and v
+    return attn_weights @ v
 
 # Step 12 - scaled_dot_product_attention (not yet solved)
 # TODO: implement
