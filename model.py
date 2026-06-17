@@ -87,8 +87,15 @@ def apply_attention_mask(scores, mask):
         return scores
     return scores + mask
 
-# Step 10 - attention_softmax (not yet solved)
-# TODO: implement
+# Step 10 - attention_softmax
+import torch
+
+def attention_softmax(masked_scores):
+    """Softmax over the last (key) axis of attention scores."""
+    # TODO: convert masked attention scores into normalized weights over the key axis
+    masked_scores -= torch.max(masked_scores, dim=-1, keepdim=True).values
+    masked_scores_exp = masked_scores.exp()
+    return masked_scores_exp / masked_scores_exp.sum(dim=-1, keepdim=True)
 
 # Step 11 - attention_context (not yet solved)
 # TODO: implement

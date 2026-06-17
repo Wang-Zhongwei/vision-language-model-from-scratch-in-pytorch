@@ -19,7 +19,7 @@ python scaffold.py
 - [x] **7.** compute_attention_scores
 - [x] **8.** scale_attention_scores
 - [x] **9.** apply_attention_mask
-- [ ] **10.** attention_softmax
+- [x] **10.** attention_softmax
 - [ ] **11.** attention_context
 - [ ] **12.** scaled_dot_product_attention
 - [ ] **13.** split_into_heads
