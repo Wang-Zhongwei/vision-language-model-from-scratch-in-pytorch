@@ -127,8 +127,8 @@ import torch
 def split_into_heads(x, num_heads):
     """Reshape (B, S, d_model) into (B, num_heads, S, d_head)."""
     # TODO: split the last dim into (num_heads, d_head) and move heads next to batch
-    B, S, d_model = x.shape
-    return x.reshape(B, S, num_heads, -1).transpose(-2, -3)
+    *B, S, d_model = x.shape
+    return x.reshape(*B, S, num_heads, -1).transpose(-2, -3)
 
 # Step 14 - merge_heads
 import torch
