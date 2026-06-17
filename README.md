@@ -30,7 +30,7 @@ python scaffold.py
 - [x] **18.** merge_and_output_project
 - [x] **19.** multi_head_self_attention
 - [x] **20.** gelu_activation
-- [ ] **21.** mlp_first_layer
+- [x] **21.** mlp_first_layer
 - [ ] **22.** mlp_second_layer
 - [ ] **23.** mlp_block
 - [ ] **24.** compute_layernorm_stats
