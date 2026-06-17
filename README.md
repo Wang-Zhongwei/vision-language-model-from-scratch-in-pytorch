@@ -17,7 +17,7 @@ python scaffold.py
 - [x] **5.** prepend_class_token
 - [x] **6.** add_position_embeddings
 - [x] **7.** compute_attention_scores
-- [ ] **8.** scale_attention_scores
+- [x] **8.** scale_attention_scores
 - [ ] **9.** apply_attention_mask
 - [ ] **10.** attention_softmax
 - [ ] **11.** attention_context
