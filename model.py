@@ -335,8 +335,14 @@ def build_token_vocabulary(texts, image_token='<image>', pad_token='<pad>'):
     
     return tokens_2_id
 
-# Step 35 - encode_text_to_ids (not yet solved)
-# TODO: implement
+# Step 35 - encode_text_to_ids
+def encode_text_to_ids(text, vocab):
+    # TODO: split text on whitespace and map each token to its vocab id
+    ids = []
+    for tok in text.split(' '):
+        if tok in vocab:
+            ids.append(vocab[tok])
+    return ids
 
 # Step 36 - embed_token_ids (not yet solved)
 # TODO: implement
