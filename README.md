@@ -43,7 +43,7 @@ python scaffold.py
 - [x] **31.** projector_first_layer
 - [x] **32.** projector_second_layer
 - [x] **33.** vision_language_projector
-- [ ] **34.** build_token_vocabulary
+- [x] **34.** build_token_vocabulary
 - [ ] **35.** encode_text_to_ids
 - [ ] **36.** embed_token_ids
 - [ ] **37.** add_text_position_embeddings

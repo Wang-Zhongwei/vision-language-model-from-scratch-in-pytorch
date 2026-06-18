@@ -318,8 +318,22 @@ def vision_language_projector(patch_features, params):
     # TODO: chain the two projector layers using params 'w1','b1','w2','b2'.
     return projector_second_layer(projector_first_layer(patch_features, params['w1'], params['b1']), params['w2'], params['b2'])
 
-# Step 34 - build_token_vocabulary (not yet solved)
-# TODO: implement
+# Step 34 - build_token_vocabulary
+def build_token_vocabulary(texts, image_token='<image>', pad_token='<pad>'):
+    # TODO: Build a whitespace token-to-id vocabulary with pad at 0 and image token at 1.
+    tokens_2_id = {pad_token: 0, image_token: 1}
+
+    tokens = set()
+    for text in texts:
+        tokens.update(text.split(' '))
+
+    tokens.discard(pad_token)
+    tokens.discard(image_token)
+
+    for i, token in enumerate(sorted(tokens), start=2):
+        tokens_2_id[token] = i
+    
+    return tokens_2_id
 
 # Step 35 - encode_text_to_ids (not yet solved)
 # TODO: implement
