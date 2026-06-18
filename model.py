@@ -287,8 +287,13 @@ def vision_encoder(patch_sequence, encoder_params, num_heads):
 
     return layer_norm(x, final_gamma, final_beta)
 
-# Step 30 - extract_patch_features (not yet solved)
-# TODO: implement
+# Step 30 - extract_patch_features
+import torch
+
+def extract_patch_features(encoder_output):
+    """Drop the [CLS] token from a ViT encoder output of shape (B, num_patches+1, d_model)."""
+    # TODO: drop the class token and return only patch feature tokens
+    return encoder_output[:, 1: , :]
 
 # Step 31 - projector_first_layer (not yet solved)
 # TODO: implement
