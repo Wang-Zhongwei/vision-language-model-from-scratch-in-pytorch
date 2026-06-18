@@ -213,8 +213,19 @@ def mlp_second_layer(h, w2, b2):
     # TODO: project the MLP hidden activations back down to d_model using w2 and b2
     return linear_projection(h, w2, b2)
 
-# Step 23 - mlp_block (not yet solved)
-# TODO: implement
+# Step 23 - mlp_block
+import torch
+
+def mlp_block(x, params):
+    """Two-layer position-wise MLP with GELU between the layers."""
+    # TODO: Assemble the position-wise two-layer MLP block with GELU between layers.
+    w1 = params['w1']
+    b1 = params['b1']
+    w2 = params['w2']
+    b2 = params['b2']
+
+    h = mlp_first_layer(x, w1, b1)
+    return mlp_second_layer(h, w2, b2)
 
 # Step 24 - compute_layernorm_stats (not yet solved)
 # TODO: implement

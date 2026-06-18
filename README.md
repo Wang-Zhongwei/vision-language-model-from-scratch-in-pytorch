@@ -32,7 +32,7 @@ python scaffold.py
 - [x] **20.** gelu_activation
 - [x] **21.** mlp_first_layer
 - [x] **22.** mlp_second_layer
-- [ ] **23.** mlp_block
+- [x] **23.** mlp_block
 - [ ] **24.** compute_layernorm_stats
 - [ ] **25.** layer_norm
 - [ ] **26.** residual_add
