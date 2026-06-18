@@ -41,7 +41,7 @@ python scaffold.py
 - [x] **29.** vision_encoder
 - [x] **30.** extract_patch_features
 - [x] **31.** projector_first_layer
-- [ ] **32.** projector_second_layer
+- [x] **32.** projector_second_layer
 - [ ] **33.** vision_language_projector
 - [ ] **34.** build_token_vocabulary
 - [ ] **35.** encode_text_to_ids
