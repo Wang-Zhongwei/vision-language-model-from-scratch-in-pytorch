@@ -308,10 +308,15 @@ import torch
 def projector_second_layer(hidden, w2, b2):
     """Map hidden activations (N, D_hidden) into the language space (N, D_lang)."""
     # TODO: apply the second linear layer of the projector (no activation).
-    return h @ w2 + b2
+    return hidden @ w2 + b2
 
-# Step 33 - vision_language_projector (not yet solved)
-# TODO: implement
+# Step 33 - vision_language_projector
+import torch
+
+def vision_language_projector(patch_features, params):
+    """Map (N, D_vision) patch features to (N, D_lang) image tokens."""
+    # TODO: chain the two projector layers using params 'w1','b1','w2','b2'.
+    return projector_second_layer(projector_first_layer(patch_features, params['w1'], params['b1']), params['w2'], params['b2'])
 
 # Step 34 - build_token_vocabulary (not yet solved)
 # TODO: implement
