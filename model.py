@@ -227,8 +227,12 @@ def mlp_block(x, params):
     h = mlp_first_layer(x, w1, b1)
     return mlp_second_layer(h, w2, b2)
 
-# Step 24 - compute_layernorm_stats (not yet solved)
-# TODO: implement
+# Step 24 - compute_layernorm_stats
+import torch
+
+def compute_layernorm_stats(x, eps=1e-5):
+    # TODO: return (mean, var) along the last dim, each with shape (..., 1).
+    return x.mean(dim=-1, keepdim=True), x.var(dim=-1, keepdim=True, unbiased=False)
 
 # Step 25 - layer_norm (not yet solved)
 # TODO: implement
