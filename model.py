@@ -243,8 +243,13 @@ def layer_norm(x, gamma, beta, eps=1e-5):
     x = (x - mu) / torch.sqrt(var + eps)
     return gamma * x + beta
 
-# Step 26 - residual_add (not yet solved)
-# TODO: implement
+# Step 26 - residual_add
+import torch
+
+def residual_add(residual, sublayer_output):
+    """Add residual skip connection to a sublayer's output."""
+    # TODO: return the element-wise sum of residual and sublayer_output
+    return residual + sublayer_output
 
 # Step 27 - pre_norm_sublayer (not yet solved)
 # TODO: implement
