@@ -344,8 +344,21 @@ def encode_text_to_ids(text, vocab):
             ids.append(vocab[tok])
     return ids
 
-# Step 36 - embed_token_ids (not yet solved)
-# TODO: implement
+# Step 36 - embed_token_ids
+import torch
+
+def embed_token_ids(token_ids, embedding_matrix):
+    """Look up embedding vectors for each token id.
+
+    Args:
+        token_ids: Long tensor of shape (T,) with values in [0, V).
+        embedding_matrix: Tensor of shape (V, D_lang).
+
+    Returns:
+        Tensor of shape (T, D_lang).
+    """
+    # TODO: select the row of embedding_matrix for each token id
+    return embedding_matrix[token_ids]
 
 # Step 37 - add_text_position_embeddings (not yet solved)
 # TODO: implement
