@@ -360,8 +360,18 @@ def embed_token_ids(token_ids, embedding_matrix):
     # TODO: select the row of embedding_matrix for each token id
     return embedding_matrix[token_ids]
 
-# Step 37 - add_text_position_embeddings (not yet solved)
-# TODO: implement
+# Step 37 - add_text_position_embeddings
+import torch
+
+def add_text_position_embeddings(text_embeddings, position_embeddings):
+    """Add learnable position embeddings to text token embeddings.
+
+    text_embeddings: (T, D_lang)
+    position_embeddings: (T_max, D_lang) with T_max >= T
+    returns: (T, D_lang)
+    """
+    # TODO: add the first T rows of position_embeddings to text_embeddings
+    return text_embeddings + position_embeddings[:text_embeddings.shape[0]]
 
 # Step 38 - find_image_placeholder_positions (not yet solved)
 # TODO: implement
