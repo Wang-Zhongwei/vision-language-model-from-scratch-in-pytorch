@@ -381,8 +381,13 @@ def find_image_placeholder_positions(token_ids, image_token_id):
     # TODO: scan token_ids and return every position whose value equals image_token_id
     return torch.nonzero(token_ids == image_token_id).flatten().tolist()
 
-# Step 39 - insert_image_tokens (not yet solved)
-# TODO: implement
+# Step 39 - insert_image_tokens
+import torch
+
+def insert_image_tokens(text_embeddings, image_tokens, placeholder_position):
+    """Splice image tokens into the text embedding sequence at the placeholder slot."""
+    # TODO: replace text_embeddings[placeholder_position] with the N image_tokens rows
+    return torch.cat((text_embeddings[:placeholder_position], image_tokens, text_embeddings[placeholder_position+1:]))
 
 # Step 40 - build_multimodal_embeddings (not yet solved)
 # TODO: implement
