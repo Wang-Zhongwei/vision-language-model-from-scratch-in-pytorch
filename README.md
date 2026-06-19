@@ -50,7 +50,7 @@ python scaffold.py
 - [x] **38.** find_image_placeholder_positions
 - [x] **39.** insert_image_tokens
 - [x] **40.** build_multimodal_embeddings
-- [ ] **41.** build_label_tensor
+- [x] **41.** build_label_tensor
 - [ ] **42.** build_causal_mask
 - [ ] **43.** decoder_block
 - [ ] **44.** language_model_decoder

@@ -402,8 +402,21 @@ def build_multimodal_embeddings(token_ids, image_tokens, embedding_matrix, posit
 
     return multimodal_embedding
 
-# Step 41 - build_label_tensor (not yet solved)
-# TODO: implement
+# Step 41 - build_label_tensor
+import torch
+
+def build_label_tensor(token_ids, image_token_id, pad_token_id, num_image_tokens, ignore_index=-100):
+    """Build the label tensor aligned to the fused multimodal sequence."""
+    # TODO: expand image placeholders, mask image and pad positions with ignore_index
+    label_tensors = []
+    for token_id in token_ids.tolist():
+        if token_id == pad_token_id:
+            label_tensors.append(ignore_index)
+        elif token_id == image_token_id:
+            label_tensors.extend([ignore_index] * num_image_tokens)
+        else:
+            label_tensors.append(token_id)
+    return torch.tensor(label_tensors)
 
 # Step 42 - build_causal_mask (not yet solved)
 # TODO: implement
