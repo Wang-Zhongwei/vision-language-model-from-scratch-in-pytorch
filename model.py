@@ -389,8 +389,18 @@ def insert_image_tokens(text_embeddings, image_tokens, placeholder_position):
     # TODO: replace text_embeddings[placeholder_position] with the N image_tokens rows
     return torch.cat((text_embeddings[:placeholder_position], image_tokens, text_embeddings[placeholder_position+1:]))
 
-# Step 40 - build_multimodal_embeddings (not yet solved)
-# TODO: implement
+# Step 40 - build_multimodal_embeddings
+import torch
+
+def build_multimodal_embeddings(token_ids, image_tokens, embedding_matrix, position_embeddings, image_token_id):
+    # TODO: build fused multimodal embeddings by embedding text, adding positions, and splicing image tokens.
+    text_embedding = embed_token_ids(token_ids, embedding_matrix)
+    text_embedding = add_text_position_embeddings(text_embedding, position_embeddings)
+
+    placeholder_position = find_image_placeholder_positions(token_ids, image_token_id)
+    multimodal_embedding = insert_image_tokens(text_embedding, image_tokens, placeholder_position[0])
+
+    return multimodal_embedding
 
 # Step 41 - build_label_tensor (not yet solved)
 # TODO: implement
