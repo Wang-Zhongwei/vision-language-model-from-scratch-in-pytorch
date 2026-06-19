@@ -427,8 +427,12 @@ def build_causal_mask(seq_len):
     mask = torch.ones(seq_len, seq_len) * (-float('inf')) 
     return torch.triu(mask, diagonal=1)
 
-# Step 43 - decoder_block (not yet solved)
-# TODO: implement
+# Step 43 - decoder_block
+def decoder_block(x, params, causal_mask):
+    # TODO: run a pre-norm masked self-attention sublayer then a pre-norm MLP sublayer over x.
+    x = pre_norm_sublayer(x, params['ln1']['gamma'], params['ln1']['beta'], lambda x: multi_head_self_attention(x, params['attn'], params['num_heads'], causal_mask))
+    x = pre_norm_sublayer(x, params['ln2']['gamma'], params['ln2']['beta'], lambda x: mlp_block(x, params['mlp']))
+    return x
 
 # Step 44 - language_model_decoder (not yet solved)
 # TODO: implement
