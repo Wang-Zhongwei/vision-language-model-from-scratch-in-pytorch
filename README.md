@@ -53,7 +53,7 @@ python scaffold.py
 - [x] **41.** build_label_tensor
 - [x] **42.** build_causal_mask
 - [x] **43.** decoder_block
-- [ ] **44.** language_model_decoder
+- [x] **44.** language_model_decoder
 - [ ] **45.** final_layer_norm
 - [ ] **46.** language_model_head
 - [ ] **47.** encode_image_to_tokens
