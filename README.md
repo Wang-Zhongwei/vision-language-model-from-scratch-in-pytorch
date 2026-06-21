@@ -55,7 +55,7 @@ python scaffold.py
 - [x] **43.** decoder_block
 - [x] **44.** language_model_decoder
 - [x] **45.** final_layer_norm
-- [ ] **46.** language_model_head
+- [x] **46.** language_model_head
 - [ ] **47.** encode_image_to_tokens
 - [ ] **48.** vision_language_forward
 - [ ] **49.** shift_logits_and_labels
