@@ -595,8 +595,12 @@ def vision_language_forward(image, token_ids, params):
 
     return language_model_head(x, params['lm_head']['w_out'], params['lm_head']['b_out'])
 
-# Step 49 - shift_logits_and_labels (not yet solved)
-# TODO: implement
+# Step 49 - shift_logits_and_labels
+import torch
+
+def shift_logits_and_labels(logits, labels):
+    # TODO: align each logit with the next-position label and return (shifted_logits, shifted_labels).
+    return logits[:-1], labels[1:]
 
 # Step 50 - per_position_cross_entropy (not yet solved)
 # TODO: implement

@@ -58,7 +58,7 @@ python scaffold.py
 - [x] **46.** language_model_head
 - [x] **47.** encode_image_to_tokens
 - [x] **48.** vision_language_forward
-- [ ] **49.** shift_logits_and_labels
+- [x] **49.** shift_logits_and_labels
 - [ ] **50.** per_position_cross_entropy
 - [ ] **51.** masked_mean_loss
 - [ ] **52.** greedy_next_token
