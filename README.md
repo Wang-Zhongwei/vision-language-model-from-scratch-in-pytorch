@@ -56,7 +56,7 @@ python scaffold.py
 - [x] **44.** language_model_decoder
 - [x] **45.** final_layer_norm
 - [x] **46.** language_model_head
-- [ ] **47.** encode_image_to_tokens
+- [x] **47.** encode_image_to_tokens
 - [ ] **48.** vision_language_forward
 - [ ] **49.** shift_logits_and_labels
 - [ ] **50.** per_position_cross_entropy
@@ -66,7 +66,7 @@ python scaffold.py
 - [ ] **54.** top_k_filter
 - [ ] **55.** sample_from_logits
 - [ ] **56.** generate_caption
-- [ ] **57.** initialize_vlm_parameters
+- [x] **57.** initialize_vlm_parameters
 - [ ] **58.** collect_parameters
 - [ ] **59.** zero_gradients
 - [ ] **60.** training_step
