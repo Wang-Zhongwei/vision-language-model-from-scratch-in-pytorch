@@ -587,7 +587,12 @@ def vision_language_forward(image, token_ids, params):
     multimodal_embedding = build_multimodal_embeddings(token_ids, image_tokens, params['embedding'], params['pos_embedding'], params['image_token_id'])
     causal_mask = build_causal_mask(multimodal_embedding.shape[0])
     x = language_model_decoder(multimodal_embedding, params['decoder_blocks'], causal_mask)
-    x = final_layer_norm(x, params['final_ln_gamma'], params['final_ln_beta'])
+
+    if params.get('final_ln_gamma') is not None and params.get('final_ln_beta') is not None:
+        x = final_layer_norm(x, params['final_ln_gamma'], params['final_ln_beta'])
+    elif params.get('final_ln') is not None:
+        x = final_layer_norm(x, params['final_ln']['gamma'], params['final_ln']['beta'])
+
     return language_model_head(x, params['lm_head']['w_out'], params['lm_head']['b_out'])
 
 # Step 49 - shift_logits_and_labels (not yet solved)
