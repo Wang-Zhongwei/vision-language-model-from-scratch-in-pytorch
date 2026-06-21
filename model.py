@@ -457,6 +457,7 @@ def language_model_head(x, w_out, b_out):
     return x @ w_out + b_out
 
 # Step 47 - encode_image_to_tokens
+# Step 47 - encode_image_to_tokens (not yet solved)
 def initialize_vlm_parameters(config, seed=0):
     torch.manual_seed(seed)
     
@@ -558,7 +559,8 @@ def initialize_vlm_parameters(config, seed=0):
         'embedding': param(vocab_size, d_lang),
         'pos_embedding': param(max_seq_len, d_lang),
         'decoder_blocks': decoder_blocks,
-        # 'final_ln_gamma': ,
+        'final_ln_gamma': param(d_lang),
+        'final_ln_beta': param(d_lang),
         'lm_head': {
             'w_out': param(d_lang, vocab_size), # test expects [d_lang, vocab_size]
             'b_out': param(vocab_size)
@@ -578,8 +580,15 @@ def encode_image_to_tokens(image, vision_params, projector_params):
     # drop class token
     return vision_language_projector(vision_embedding[:, 1:, :], projector_params).squeeze(0)
 
-# Step 48 - vision_language_forward (not yet solved)
-# TODO: implement
+# Step 48 - vision_language_forward
+def vision_language_forward(image, token_ids, params):
+    # TODO: route image + token_ids through the full vision-language model and return (L, V) logits.
+    image_tokens = encode_image_to_tokens(image, params['vision'], params['projector'])
+    multimodal_embedding = build_multimodal_embeddings(token_ids, image_tokens, params['embedding'], params['pos_embedding'], params['image_token_id'])
+    causal_mask = build_causal_mask(multimodal_embedding.shape[0])
+    x = language_model_decoder(multimodal_embedding, params['decoder_blocks'], causal_mask)
+    x = final_layer_norm(x, params['final_ln_gamma'], params['final_ln_beta'])
+    return language_model_head(x, params['lm_head']['w_out'], params['lm_head']['b_out'])
 
 # Step 49 - shift_logits_and_labels (not yet solved)
 # TODO: implement
