@@ -71,7 +71,7 @@ python scaffold.py
 - [x] **59.** zero_gradients
 - [x] **60.** training_step
 - [x] **61.** apply_gradient_update
-- [ ] **62.** run_training_loop
+- [x] **62.** run_training_loop
 
 ---
 
