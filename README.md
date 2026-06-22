@@ -60,7 +60,7 @@ python scaffold.py
 - [x] **48.** vision_language_forward
 - [x] **49.** shift_logits_and_labels
 - [x] **50.** per_position_cross_entropy
-- [ ] **51.** masked_mean_loss
+- [x] **51.** masked_mean_loss
 - [ ] **52.** greedy_next_token
 - [ ] **53.** apply_temperature
 - [ ] **54.** top_k_filter
