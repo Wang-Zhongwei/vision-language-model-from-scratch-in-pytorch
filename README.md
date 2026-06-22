@@ -67,7 +67,7 @@ python scaffold.py
 - [x] **55.** sample_from_logits
 - [x] **56.** generate_caption
 - [x] **57.** initialize_vlm_parameters
-- [ ] **58.** collect_parameters
+- [x] **58.** collect_parameters
 - [ ] **59.** zero_gradients
 - [ ] **60.** training_step
 - [ ] **61.** apply_gradient_update

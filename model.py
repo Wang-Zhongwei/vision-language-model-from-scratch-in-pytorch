@@ -696,7 +696,7 @@ def generate_caption(image, prompt_ids, params, max_new_tokens, temperature=1.0,
 
 # Step 57 - initialize_vlm_parameters
 import torch
-
+# Step 47 - encode_image_to_tokens (not yet solved)
 def initialize_vlm_parameters(config, seed=0):
     torch.manual_seed(seed)
     
@@ -731,50 +731,66 @@ def initialize_vlm_parameters(config, seed=0):
         # Create a leaf tensor with requires_grad=True
         return torch.randn(*shape, requires_grad=True)
 
-    def mk_ln(dim):
-        return {'gamma': param(dim), 'beta': param(dim)}
+    # def mk_ln(dim):
+    #     return {'gamma': param(dim), 'beta': param(dim)}
 
+    # (d_out, d_in) convention for mlp
     def mk_mlp(d_in, d_hid, d_out):
         return {
-            'w1': param(d_in, d_hid), 'b1': param(d_hid),
-            'w2': param(d_hid, d_out), 'b2': param(d_out)
+            'w1': param(d_hid, d_in), 'b1': param(d_hid),
+            'w2': param(d_out, d_hid), 'b2': param(d_out)
         }
 
     def mk_attn(dim):
         return {
-            'w_qkv': param(dim, 3 * dim), 'b_qkv': param(3 * dim),
-            'w_out': param(dim, dim),     'b_out': param(dim)
+            'wq': param(dim, dim),
+            'wk': param(dim, dim),
+            'wv': param(dim, dim),
+            'wo': param(dim, dim),
+            'bq': param(dim),
+            'bk': param(dim),
+            'bv': param(dim),
+            'bo': param(dim),
         }
 
     # 4. Assemble Encoder and Decoder Blocks
     vision_blocks = [{
         'num_heads': v_heads, # Kept as an integer, the test explicitly looks for this!
+        'ln1_gamma': param(d_vision),
+        'ln1_beta': param(d_vision),
         'attn': mk_attn(d_vision),
-        'ln_1': mk_ln(d_vision),
+        'ln2_gamma': param(d_vision),
+        'ln2_beta': param(d_vision),
         'mlp': mk_mlp(d_vision, v_mlp, d_vision),
-        'ln_2': mk_ln(d_vision)
     } for _ in range(v_layers)]
 
     decoder_blocks = [{
         'num_heads': l_heads,
+        'ln1_gamma': param(d_lang),
+        'ln1_beta': param(d_lang),
         'attn': mk_attn(d_lang),
-        'ln_1': mk_ln(d_lang),
+        'ln2_gamma': param(d_lang),
+        'ln2_beta': param(d_lang),
         'mlp': mk_mlp(d_lang, l_mlp, d_lang),
-        'ln_2': mk_ln(d_lang)
     } for _ in range(l_layers)]
 
     # 5. Return the top-level dictionary matching consumer expectations
     return {
         'vision': {
+            "num_heads": v_heads,
+            # (d_out, d_in) convention
             'patch_proj': {
-                'w': param(in_c * p_size * p_size, d_vision),
+                'w': param(d_vision, in_c * p_size * p_size),
                 'b': param(d_vision)
             },
             'cls_token': param(1, d_vision),
             'pos_embedding': param(num_patches + 1, d_vision),
             'blocks': vision_blocks,
-            'ln_post': mk_ln(d_vision)
+            'final_ln_gamma': param(d_vision),
+            'final_ln_beta': param(d_vision),
+            'patch_size': p_size,
         },
+        # (d_in, d_out) notation
         'projector': {
             'w1': param(d_vision, d_lang), 'b1': param(d_lang),
             'w2': param(d_lang, d_lang),   'b2': param(d_lang)
@@ -782,7 +798,8 @@ def initialize_vlm_parameters(config, seed=0):
         'embedding': param(vocab_size, d_lang),
         'pos_embedding': param(max_seq_len, d_lang),
         'decoder_blocks': decoder_blocks,
-        'final_ln': mk_ln(d_lang),
+        'final_ln_gamma': param(d_lang),
+        'final_ln_beta': param(d_lang),
         'lm_head': {
             'w_out': param(d_lang, vocab_size), # test expects [d_lang, vocab_size]
             'b_out': param(vocab_size)
@@ -791,8 +808,31 @@ def initialize_vlm_parameters(config, seed=0):
         'num_image_tokens': get('num_image_tokens', default=4)
     }
 
-# Step 58 - collect_parameters (not yet solved)
-# TODO: implement
+# Step 58 - collect_parameters
+import torch
+
+def collect_parameters(params):
+    collected_params = []
+    
+    # If it's a dictionary, recurse into its values
+    if isinstance(params, dict):
+        for value in params.values():
+            collected_params.extend(collect_parameters(value))
+            
+    # If it's a list or tuple, recurse into its items
+    elif isinstance(params, (list, tuple)):
+        for item in params:
+            collected_params.extend(collect_parameters(item))
+            
+    # If it's a tensor, check if it requires gradients
+    elif isinstance(params, torch.Tensor):
+        if params.requires_grad:
+            collected_params.append(params)
+            
+    # Non-tensor scalars (like ints/floats) will naturally be ignored 
+    # since they don't match any of the above conditions.
+    
+    return collected_params
 
 # Step 59 - zero_gradients (not yet solved)
 # TODO: implement
