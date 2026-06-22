@@ -63,7 +63,7 @@ python scaffold.py
 - [x] **51.** masked_mean_loss
 - [x] **52.** greedy_next_token
 - [x] **53.** apply_temperature
-- [ ] **54.** top_k_filter
+- [x] **54.** top_k_filter
 - [ ] **55.** sample_from_logits
 - [ ] **56.** generate_caption
 - [x] **57.** initialize_vlm_parameters
