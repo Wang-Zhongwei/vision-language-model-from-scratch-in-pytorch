@@ -62,7 +62,7 @@ python scaffold.py
 - [x] **50.** per_position_cross_entropy
 - [x] **51.** masked_mean_loss
 - [x] **52.** greedy_next_token
-- [ ] **53.** apply_temperature
+- [x] **53.** apply_temperature
 - [ ] **54.** top_k_filter
 - [ ] **55.** sample_from_logits
 - [ ] **56.** generate_caption
