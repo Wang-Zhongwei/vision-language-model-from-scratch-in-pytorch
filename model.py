@@ -834,8 +834,14 @@ def collect_parameters(params):
     
     return collected_params
 
-# Step 59 - zero_gradients (not yet solved)
-# TODO: implement
+# Step 59 - zero_gradients
+def zero_gradients(parameter_list):
+    """Resets the .grad attribute of every parameter tensor to zero in place."""
+    
+    for param in parameter_list:
+        # Only zero out the gradient if it has already been allocated
+        if param.grad is not None:
+            param.grad.zero_()
 
 # Step 60 - training_step (not yet solved)
 # TODO: implement
