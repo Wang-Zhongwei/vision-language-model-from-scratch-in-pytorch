@@ -652,7 +652,7 @@ def top_k_filter(logits, k):
     
     filtered_logits = torch.full_like(logits, float('-inf'))
 
-    filtered_logits[indices] = vals
+    filtered_logits.scatter_(-1, indices, vals) 
 
     return filtered_logits
 
@@ -671,8 +671,28 @@ def sample_from_logits(logits):
     probs = logits.softmax(dim=-1)
     return torch.multinomial(probs, num_samples=1).item()
 
-# Step 56 - generate_caption (not yet solved)
-# TODO: implement
+# Step 56 - generate_caption
+def generate_caption(image, prompt_ids, params, max_new_tokens, temperature=1.0, top_k=0, do_sample=False):
+    import torch 
+    
+    for i in range(max_new_tokens):
+        logits = vision_language_forward(image, prompt_ids, params)
+        logits = apply_temperature(logits, temperature)
+        
+        # FIX: Only apply the filter if top_k is greater than 0!
+        if top_k > 0:
+            logits = top_k_filter(logits, top_k)
+        
+        if do_sample:
+            next_token_id = sample_from_logits(logits[-1])
+        else:
+            next_token_id = greedy_next_token(logits)
+        
+        # Create the new tensor securely on the same device as the prompt
+        new_token_tensor = torch.tensor([next_token_id], device=prompt_ids.device)
+        prompt_ids = torch.cat([prompt_ids, new_token_tensor])
+        
+    return prompt_ids.tolist()
 
 # Step 57 - initialize_vlm_parameters
 import torch
