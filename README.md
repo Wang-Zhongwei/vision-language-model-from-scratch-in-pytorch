@@ -64,7 +64,7 @@ python scaffold.py
 - [x] **52.** greedy_next_token
 - [x] **53.** apply_temperature
 - [x] **54.** top_k_filter
-- [ ] **55.** sample_from_logits
+- [x] **55.** sample_from_logits
 - [ ] **56.** generate_caption
 - [x] **57.** initialize_vlm_parameters
 - [ ] **58.** collect_parameters
