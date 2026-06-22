@@ -626,8 +626,10 @@ def masked_mean_loss(per_position_losses, shifted_labels, ignore_index=-100):
         return per_position_losses.sum()
     return per_position_losses.sum() / n
 
-# Step 52 - greedy_next_token (not yet solved)
-# TODO: implement
+# Step 52 - greedy_next_token
+def greedy_next_token(logits):
+    # TODO: return the int token id with the highest logit at the final position
+    return logits[-1].argmax().item()
 
 # Step 53 - apply_temperature (not yet solved)
 # TODO: implement
