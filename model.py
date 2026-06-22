@@ -988,8 +988,22 @@ def training_step(image, token_ids, labels, params, parameter_list, learning_rat
     # 6. Return the detached tensor (not a Python float!)
     return loss.detach()
 
-# Step 61 - apply_gradient_update (not yet solved)
-# TODO: implement
+# Step 61 - apply_gradient_update
+import torch
+
+def apply_gradient_update(parameters, learning_rate):
+    """Applies a vanilla SGD update in-place to a list of parameters."""
+    
+    # We can use torch.no_grad() just to be perfectly safe, 
+    # though modifying p.data directly also bypasses autograd tracking!
+    with torch.no_grad():
+        for p in parameters:
+            if p.grad is not None:
+                # Apply the in-place update as requested in the TODO
+                p.data -= learning_rate * p.grad
+                
+    # Don't forget to return the original list!
+    return parameters
 
 # Step 62 - run_training_loop (not yet solved)
 # TODO: implement
