@@ -29,6 +29,13 @@ python -m vlm.infer --ckpt checkpoints/stage2 --image cat.jpg --prompt "What is 
 
 Develop locally on CPU, then `REMOTE=user@h100-box ./scripts/sync_to_cluster.sh` to train.
 
+Before burning GPU hours, sanity-check the whole forward/merge/loss path on CPU with tiny
+random-init backbones (no downloads):
+
+```bash
+python -m pytest tests/test_smoke.py -q
+```
+
 ## From-scratch track
 
 ```bash

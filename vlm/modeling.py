@@ -62,23 +62,30 @@ def _dtype_of(name: str) -> torch.dtype:
 
 
 class LlavaVLM(nn.Module):
-    def __init__(self, config: LlavaConfig, tokenizer):
+    def __init__(self, config: LlavaConfig, tokenizer, vision_tower=None, language_model=None):
+        """Build the VLM. Backbones are downloaded from the hub unless `vision_tower` /
+        `language_model` are supplied directly (used by the smoke test to inject tiny
+        random-init stand-ins, so the full forward path runs offline on CPU)."""
         super().__init__()
         self.config = config
         self.tokenizer = tokenizer
         dtype = _dtype_of(config.dtype)
 
         # --- Vision tower (frozen): SigLIP has no CLS token; every output token is a patch. ---
-        vision = AutoModel.from_pretrained(config.vision_model, torch_dtype=dtype)
-        self.vision_tower = getattr(vision, "vision_model", vision)
+        if vision_tower is None:
+            vision = AutoModel.from_pretrained(config.vision_model, torch_dtype=dtype)
+            vision_tower = getattr(vision, "vision_model", vision)
+        self.vision_tower = vision_tower
         d_vision = self.vision_tower.config.hidden_size
 
         # --- Language model (modern: RoPE/RMSNorm/SwiGLU/GQA already inside). ---
-        self.language_model = AutoModelForCausalLM.from_pretrained(
-            config.language_model,
-            torch_dtype=dtype,
-            attn_implementation=config.attn_implementation,
-        )
+        if language_model is None:
+            language_model = AutoModelForCausalLM.from_pretrained(
+                config.language_model,
+                torch_dtype=dtype,
+                attn_implementation=config.attn_implementation,
+            )
+        self.language_model = language_model
         d_text = self.language_model.config.hidden_size
 
         # --- The bridge: your projector design, now trainable. ---
