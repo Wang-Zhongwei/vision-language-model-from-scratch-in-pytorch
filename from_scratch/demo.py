@@ -5,35 +5,18 @@ Run this with: python scaffold.py
 Uses functions defined in model.py.
 """
 
-from model import *  # noqa: F401, F403 (pulls in your solution functions)
-
-"""End-to-end demo of a tiny vision-language model: build toy data, run a
-short training loop, then greedily generate a caption."""
-
 import numpy as np
 import torch
 
-from solution import (
-    split_image_into_patches, flatten_patches, linear_projection,
-    project_patches_to_embeddings, prepend_class_token, add_position_embeddings,
-    compute_attention_scores, scale_attention_scores, apply_attention_mask,
-    attention_softmax, attention_context, scaled_dot_product_attention,
-    split_into_heads, merge_heads, project_qkv, split_qkv_into_heads,
-    multi_head_attention_scores, merge_and_output_project,
-    multi_head_self_attention, gelu_activation, mlp_first_layer,
-    mlp_second_layer, mlp_block, compute_layernorm_stats, layer_norm,
-    residual_add, pre_norm_sublayer, vision_encoder_block, vision_encoder,
-    extract_patch_features, projector_first_layer, projector_second_layer,
-    vision_language_projector, build_token_vocabulary, encode_text_to_ids,
-    embed_token_ids, add_text_position_embeddings,
-    find_image_placeholder_positions, insert_image_tokens,
-    build_multimodal_embeddings, build_label_tensor, build_causal_mask,
-    decoder_block, language_model_decoder, final_layer_norm,
-    language_model_head, encode_image_to_tokens, vision_language_forward,
-    shift_logits_and_labels, per_position_cross_entropy, masked_mean_loss,
-    greedy_next_token, apply_temperature, top_k_filter, sample_from_logits,
-    generate_caption, initialize_vlm_parameters, collect_parameters,
-    zero_gradients, training_step, apply_gradient_update, run_training_loop,
+from model import (
+    build_label_tensor,
+    build_token_vocabulary,
+    collect_parameters,
+    encode_text_to_ids,
+    generate_caption,
+    initialize_vlm_parameters,
+    run_training_loop,
+    vision_language_forward,
 )
 
 

@@ -1,0 +1,14 @@
+# Real-track (LLaVA-style) training dependencies.
+# The from-scratch track (model.py / scaffold.py) only needs torch + numpy.
+torch>=2.4
+transformers>=4.45
+datasets>=2.20
+accelerate>=0.34
+pillow
+peft>=0.12          # optional: LoRA for stage-2 instruction tuning
+sentencepiece       # tokenizer backend for some LMs
+tqdm
+pyyaml
+wandb               # training dashboards (loss/lr/grad-norm)
+sacrebleu           # caption BLEU-4 in vlm/eval.py
+# pycocoevalcap     # optional: CIDEr for captioning eval

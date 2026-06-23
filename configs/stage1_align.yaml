@@ -1,0 +1,36 @@
+# Stage 1 — alignment. Freeze vision + LM, train ONLY the projector.
+stage: 1
+
+model:
+  vision_model: google/siglip-so400m-patch14-384
+  language_model: Qwen/Qwen2.5-1.5B-Instruct
+  freeze_vision: true
+  freeze_language: true
+  projector_hidden_mult: 4
+  attn_implementation: sdpa        # set flash_attention_2 on the H100 box if installed
+  dtype: bfloat16
+
+data:
+  source:
+    # Swap for LLaVA-Pretrain (558k) once downloaded; Flickr30k is a quick real start.
+    type: hf
+    id: nlphuji/flickr30k
+    split: test
+    image_col: image
+    caption_col: caption
+
+train:
+  output_dir: checkpoints/stage1
+  epochs: 1
+  batch_size: 32          # per-GPU; scale with grad_accum to ~256 global
+  grad_accum: 2
+  lr: 1.0e-3              # projector trains fast at a high LR
+  weight_decay: 0.0
+  warmup_ratio: 0.03
+  max_grad_norm: 1.0
+  num_workers: 8
+  log_every: 10
+  seed: 0
+  wandb:                   # remove this block to disable logging
+    project: vlm-llava
+    run_name: stage1-align

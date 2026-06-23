@@ -1,14 +1,41 @@
-# Vision-Language Model from Scratch in PyTorch
+# Vision-Language Model: from-scratch internals → a trained, chat-capable VLM
 
-Build an end-to-end multimodal vision-language model that ingests an image plus a text prompt and autoregressively generates a caption. You will implement every component from raw tensor operations: a ViT image encoder, a vision-to-language projector, a causal text decoder, multimodal fusion, the training loop, and sampling-based generation.
+A two-track multimodal project:
 
-## How to run
+1. **From-scratch track** (`from_scratch/`) — every VLM component implemented from raw
+   tensor ops: a ViT image encoder, a vision→language projector, a causal text decoder,
+   multimodal fusion, the training loop, and sampling-based generation. This proves the
+   internals are understood end to end.
+2. **Real-track** (`vlm/`) — the same projector + multimodal-fusion design, now wired to
+   production backbones (frozen **SigLIP** vision tower + **Qwen2.5** LM) and trained
+   **LLaVA-style** on real image-text data across multiple H100s. The hand-derived
+   projector (`from_scratch/model.py`) becomes the trainable bridge
+   (`vlm/modeling.py:MLPProjector`).
+
+## Real-track: train a VLM on real images
 
 ```bash
-python scaffold.py
+pip install -r requirements-train.txt
+
+# Stage 1 — alignment: freeze vision + LM, train only the projector
+./scripts/launch.sh configs/stage1_align.yaml
+
+# Stage 2 — instruction tuning: unfreeze the LM, resume the aligned projector
+./scripts/launch.sh configs/stage2_finetune.yaml
+
+# Chat with the result
+python -m vlm.infer --ckpt checkpoints/stage2 --image cat.jpg --prompt "What is in this image?"
 ```
 
-## Steps
+Develop locally on CPU, then `REMOTE=user@h100-box ./scripts/sync_to_cluster.sh` to train.
+
+## From-scratch track
+
+```bash
+python from_scratch/demo.py
+```
+
+### Steps
 
 - [x] **1.** split_image_into_patches
 - [x] **2.** flatten_patches
@@ -75,4 +102,5 @@ python scaffold.py
 
 ---
 
-Built on Deep-ML.
+The from-scratch component breakdown follows the Deep-ML VLM curriculum; the real-track
+training pipeline (`vlm/`), backbone integration, and two-stage recipe are original.
